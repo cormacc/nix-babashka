@@ -1,0 +1,53 @@
+name: bump
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bump
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Cache Nix builds
+        uses: DeterminateSystems/magic-nix-cache-action@v14
+
+      - name: Run bump script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          nix run nixpkgs#babashka -- script/bump.clj | tee /tmp/bump-summary.txt
+
+      # Single step so an early `exit 0` (no pin change) or a failed gate
+      # build (set -e) both skip the commit below without touching main.
+      - name: Build (gate) and commit pin bump
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- nix/pins.json; then
+            echo "nix/pins.json unchanged — nothing to commit"
+            exit 0
+          fi
+
+          nix build .#babashka .#babashka-snapshot
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nix/pins.json
+          git commit -m "chore: bump pins" -F /tmp/bump-summary.txt
+          git pull --rebase origin main
+          git push origin HEAD:main
