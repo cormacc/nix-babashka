@@ -69,3 +69,7 @@ Upstream ships a `babashka.ffi`-capable (libffi-linked) binary only for
 `x86_64-linux` and both macOS platforms. `aarch64-linux` has only the static
 musl build, which upstream builds without libffi, so `babashka.ffi` is
 unavailable there.
+
+## LLM-use disclosure
+
+This flake was largely written by an LLM -- because life's too short to write nix.
