@@ -27,8 +27,8 @@ babashka v1.13.223
 Build either package:
 
 ```console
-$ nix build .#babashka          # release, packages.default
-$ nix build .#babashka-snapshot # latest master build
+$ nix build '.#babashka'          # release, packages.default
+$ nix build '.#babashka-snapshot' # latest master build
 $ result/bin/bb --version
 ```
 
