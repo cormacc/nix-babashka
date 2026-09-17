@@ -48,6 +48,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add nix/pins.json
-          git commit -m "chore: bump pins" -F /tmp/bump-summary.txt
+          { echo "chore: bump pins"; echo; cat /tmp/bump-summary.txt; } | git commit -F -
           git pull --rebase origin main
           git push origin HEAD:main
