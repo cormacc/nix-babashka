@@ -72,25 +72,39 @@
   (< (.toMinutes (java.time.Duration/between (java.time.Instant/parse updated-at) (java.time.Instant/now)))
      settling-minutes))
 
-(defn- settling? [assets version]
-  (let [by-name (into {} (map (juxt :name identity)) assets)]
-    (some (fn [[_system suffix]]
-            (let [name (str "babashka-" version "-" suffix ".tar.gz")]
-              (if-let [asset (get by-name name)]
-                (too-recent? (:updated_at asset))
-                (do
-                  (binding [*out* *err*]
-                    (println (str "error: babashka-dev-builds release v" version " is missing asset " name)))
-                  (System/exit 1)))))
-          system->suffix)))
+(defn- snapshot-state
+  "Return :missing, :settling or :ready for the dev build's platform tarballs.
+  :missing is not fatal: upstream does not re-run a failed platform job, so the
+  asset may never appear, and exiting would also discard the release bump."
+  [assets version]
+  (let [by-name (into {} (map (juxt :name identity)) assets)
+        names (map (fn [[_system suffix]] (str "babashka-" version "-" suffix ".tar.gz"))
+                   system->suffix)
+        missing (remove by-name names)]
+    (cond
+      (seq missing)
+      (do
+        ;; stderr keeps the warning out of the commit message built from
+        ;; stdout; the Actions runner still parses ::warning:: from stderr.
+        (binding [*out* *err*]
+          (println (str "::warning::babashka-dev-builds release v" version
+                        " is missing " (str/join ", " missing)
+                        "; keeping the current snapshot pin")))
+        :missing)
+
+      (some #(too-recent? (:updated_at (by-name %))) names) :settling
+      :else :ready)))
 
 (defn- bump-snapshot [pins]
   (let [releases (fetch-json! "https://api.github.com/repos/babashka/babashka-dev-builds/releases?per_page=1")
         latest (first releases)
         version (subs (:tag_name latest) 1)]
-    (if (settling? (:assets latest) version)
-      (do (println "snapshot: skipped (settling)")
-          pins)
+    (case (snapshot-state (:assets latest) version)
+      :missing (do (println (str "snapshot: skipped (v" version " incomplete)"))
+                   pins)
+      :settling (do (println "snapshot: skipped (settling)")
+                    pins)
+      :ready
       (let [hashes (fetch-hashes! "babashka-dev-builds" version)]
         (if (= hashes (get-in pins [:snapshot :hashes]))
           (do (println "snapshot: unchanged")
