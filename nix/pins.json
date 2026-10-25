@@ -1,21 +1,21 @@
 {
   "release" : {
     "hashes" : {
-      "aarch64-darwin" : "sha256-Ya0ZpwpuRKk6inE4TjljLlMhJcKrq/9oag0fmcZP5wc=",
-      "aarch64-linux" : "sha256-s+4BFmDsQYheQIqNn13/xdjjTmXGVs53H+AjvBniHks=",
-      "x86_64-darwin" : "sha256-AXUAL5tkZZjeEO7DAQLDOO88tMsLZUr43EngX5+sTNw=",
-      "x86_64-linux" : "sha256-xs5jv/uQzmClJUZKG9HppelVTlwJrbsPjUr2AaWzrB0="
+      "aarch64-darwin" : "sha256-+EW2l1XOey17/lgXA2aNckTm/LxPLiISI/HlImwan1s=",
+      "aarch64-linux" : "sha256-Ij5qHZixYq+5CpGZom9+ki8ZC+Oqy1rT/ppvhm8Q9/E=",
+      "x86_64-darwin" : "sha256-vVqDZA8vmOkm+GoC5EbPacSDfBZR8BDh8OHIxjL4+P8=",
+      "x86_64-linux" : "sha256-DSRmPKinCpr8GiH673T4dt1Vbvehxj5SaDR0dbulyCI="
     },
-    "version" : "1.13.227"
+    "version" : "1.13.228"
   },
   "snapshot" : {
     "hashes" : {
-      "aarch64-darwin" : "sha256-LCrL+FKmRe8dLYh4O6Vk6/m8gR748n08v2Sr14K/uYM=",
-      "aarch64-linux" : "sha256-Ss8On0XiwJfZsvKsy8HXZbNGtSO1zZywMyepeJsNvZw=",
-      "x86_64-darwin" : "sha256-SvOWMr7xOy81yz8C9wck7ibQEx3XhLnWzPo/KVhxUAg=",
-      "x86_64-linux" : "sha256-HQE9iKYv7kPPlZ0hl3fh0UYI6bMIpH7sQMUiBm4jF1w="
+      "aarch64-darwin" : "sha256-fFId083q4WAXmx8ufWCKHOQTEA0HQ3qNQwl8soUxd6I=",
+      "aarch64-linux" : "sha256-GAf4TpI7xQVrRDM6xuBzVqTzGgQCoZ3hZZJI5Dn6/d0=",
+      "x86_64-darwin" : "sha256-UiSGYToUO5J3Dg2fVmNzlVtAL7i69YH6ppdaNznd0Bw=",
+      "x86_64-linux" : "sha256-jiZ7ltoCL57mI4bU6h2RnhajyHVnjuzfTqgMRHDOmVc="
     },
-    "updated" : "2026-10-24",
-    "version" : "1.13.228-SNAPSHOT"
+    "updated" : "2026-10-25",
+    "version" : "1.13.229-SNAPSHOT"
   }
 }
