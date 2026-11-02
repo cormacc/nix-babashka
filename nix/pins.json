@@ -10,12 +10,12 @@
   },
   "snapshot" : {
     "hashes" : {
-      "aarch64-darwin" : "sha256-JT0HPLc77luqk8937A9V15zTpsFjOAzztGyJHdQHnuA=",
-      "aarch64-linux" : "sha256-fKkMN6YNhIWOgZXjSjiu5ZIcj3Rdw8suOXybxyEdqsA=",
-      "x86_64-darwin" : "sha256-mkM417PEww1rlsqIswo88bwQe+hCdgbhiVKB9Uw32CU=",
-      "x86_64-linux" : "sha256-ELAa34tZ0bks2MHARC8Z4HvtT2Vaa7pQ+EQQbpOjoKA="
+      "aarch64-darwin" : "sha256-j6orY4nyYpl0qcQvgVKV/Eczq4uF7YNJqjFAB67XRrA=",
+      "aarch64-linux" : "sha256-6/+vP0AmQd1IMdB9HTh2OREPF/TgvreciH+4fRmYYIQ=",
+      "x86_64-darwin" : "sha256-PAXnQ6LgFtcDazE6yJlckfoxNaE29bxhyR7CbbOZZC8=",
+      "x86_64-linux" : "sha256-mZHJgB8wzWnHfenYPpLFqjx/8N+sUGM3f7WUxJBJkho="
     },
-    "updated" : "2026-11-01",
+    "updated" : "2026-11-02",
     "version" : "1.13.230-SNAPSHOT"
   }
 }
